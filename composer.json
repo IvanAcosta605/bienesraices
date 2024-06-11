@@ -1,0 +1,17 @@
+{
+    "name": "ivan/bienesraices",
+    "description": "Creando un proyecto con PDO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "IvanDev",
+            "email": "ivanjoelacosta605@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\" : "./classes"
+        }
+    }
+}

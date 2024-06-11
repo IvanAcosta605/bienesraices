@@ -1,5 +1,5 @@
 <?php
-    include 'includes/funciones.php';
+    include 'includes/app.php';
     $inicio = true;
     incluirTemplate('header', $inicio);
 ?>

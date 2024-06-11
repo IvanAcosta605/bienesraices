@@ -1,11 +1,14 @@
 <?php
-    require '../../includes/funciones.php';
+    require '../../includes/app.php';
+
+    use App\Propiedad;
+
     $auth = estaAutenticado();
+    
     if(!$auth){
         header('Location: /bienesraices/index.php');
     }
     //Base de datos//
-    require '../../includes/config/database.php';
     $db = conectarDB();
 
     //Consultar para obtener los vendedores
