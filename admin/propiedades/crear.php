@@ -3,11 +3,8 @@
 
     use App\Propiedad;
 
-    $auth = estaAutenticado();
-    
-    if(!$auth){
-        header('Location: /bienesraices/index.php');
-    }
+    estaAutenticado();
+
     //Base de datos//
     $db = conectarDB();
 
@@ -28,6 +25,13 @@
 
     //Ejecutar el codigo despues de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+        $propiedad = new Propiedad($_POST);
+
+        $propiedad->guardar();
+
+        //debuguear($propiedad);
+
         //echo "<pre>";
         //var_dump($_POST);
         //echo "</pre>";
@@ -42,7 +46,7 @@
         $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
         $wc = mysqli_real_escape_string($db, $_POST['wc']);
         $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']);
+        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id']);
         $creado = date('Y/m/d');
 
         //Asignar files hacia una variable
@@ -163,7 +167,7 @@
             <fieldset>
                 <legend>Vendedor</legend>
 
-                <select name="vendedor">
+                <select name="vendedores_id">
                     <option value="" disabled selected>--SELECCIONE--</option>
                     <?php while($vendedor = mysqli_fetch_assoc($resultado)): ?>
                         <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : '' ?> value="<?php echo $vendedor['id'] ?>"><?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?></option>
