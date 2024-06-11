@@ -1,7 +1,9 @@
 <?php
-    if(!$_SESSION){
-        session_start();
-    }
+// Inicia la sesión
+session_start();
+    // if(!$_SESSION){
+    //     session_start();
+    // }
     $auth = $_SESSION['login'] ?? false;
 ?>
 <!DOCTYPE html>
