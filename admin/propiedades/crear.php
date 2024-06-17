@@ -53,12 +53,7 @@
             $image->save(CARPETA_IMAGENES . $nombreImagen);
             
             // Guarda en la base de datod
-            $resultado = $propiedad->guardar();
-
-            //Redireccionar al usuario
-            if($resultado){
-                header('Location: /bienesraices/admin/index.php?resultado=1');
-            }
+            $propiedad->guardar();
         }
     }
     incluirTemplate('header');

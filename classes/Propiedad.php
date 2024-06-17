@@ -27,7 +27,7 @@
         }
 
         public function __construct($args = []){
-            $this->id = $args['id'] ?? '';
+            $this->id = $args['id'] ?? null;
             $this->titulo = $args['titulo'] ?? '';
             $this->precio = $args['precio'] ?? '';
             $this->imagen = $args['imagen'] ?? '';
@@ -40,7 +40,7 @@
         }
 
         public function guardar(){
-            if(isset($this->id)){
+            if(!is_null($this->id)){
                 //Actualizar registro
                 $this->actualizar();
             } else{
@@ -63,7 +63,10 @@
             
             $resultado = self::$db->query($query);
 
-            return $resultado;
+            //Redireccionar al usuario
+            if($resultado){
+                header('Location: /bienesraices/admin/index.php?resultado=1');
+            }
         }
 
         public function actualizar(){
@@ -83,7 +86,6 @@
             $resultado = self::$db->query($query);
 
             if($resultado){
-                $this->borrarImagen();
                 //Redireccionar al usuario
                 header('Location: /bienesraices/admin/index.php?resultado=2');
             }
@@ -94,6 +96,7 @@
             $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
             $resultado = self::$db->query($query);
             if($resultado){
+                $this->borrarImagen();
                 header('location: ../admin/index.php?resultado=3');
             }
         }
@@ -120,7 +123,7 @@
         //Subida de archivos
         public function setImagen($imagen){
             //Elimina la imagen previa
-            if(isset($this->id)){
+            if(!is_null($this->id)){
                 $this->borrarImagen();
             }
 
@@ -131,7 +134,7 @@
         }
 
         //Eliminar archivo
-        public function borrarImagen(){
+        public function borrarImagen() {
             //Comprobar si existe el archivo
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if($existeArchivo){
