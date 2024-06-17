@@ -67,7 +67,6 @@
         }
 
         public function actualizar(){
-            //debuguear('ACTUALIZANDO');
             //Sanitizar los datos
             $atributos = $this->sanitizarAtributos();
 
@@ -84,8 +83,18 @@
             $resultado = self::$db->query($query);
 
             if($resultado){
+                $this->borrarImagen();
                 //Redireccionar al usuario
                 header('Location: /bienesraices/admin/index.php?resultado=2');
+            }
+        }
+
+        //Eliminar registro
+        public function eliminar(){
+            $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+            $resultado = self::$db->query($query);
+            if($resultado){
+                header('location: ../admin/index.php?resultado=3');
             }
         }
 
@@ -112,16 +121,21 @@
         public function setImagen($imagen){
             //Elimina la imagen previa
             if(isset($this->id)){
-                //Comprobar si existe el archivo
-                $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
-                if($existeArchivo){
-                    unlink(CARPETA_IMAGENES . $this->imagen);
-                }
+                $this->borrarImagen();
             }
 
             //Asignar al atributo de imagen el nombre de la imagen
             if($imagen){
                 $this->imagen = $imagen;
+            }
+        }
+
+        //Eliminar archivo
+        public function borrarImagen(){
+            //Comprobar si existe el archivo
+            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+            if($existeArchivo){
+                unlink(CARPETA_IMAGENES . $this->imagen);
             }
         }
 
