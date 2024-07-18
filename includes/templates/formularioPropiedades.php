@@ -2,7 +2,11 @@
                 <legend>Información General</legend>
 
                 <label for="titulo">Titulo</label>
-                <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php echo s($propiedad->titulo) ?>">
+                <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php
+
+use App\Vendedor;
+
+ echo s($propiedad->titulo) ?>">
 
                 <label for="precio">Precio</label>
                 <input type="number" id="precio" name="propiedad[precio]" placeholder="Precio Propiedad" value="<?php echo s($propiedad->precio) ?>">
@@ -34,12 +38,12 @@
 
             <fieldset>
                 <legend>Vendedor</legend>
-
-                <!-- <select name="vendedores_id"> -->
-                    <!-- <option value="" disabled selected>--SELECCIONE--</option>
-                    <?php //while($vendedor = mysqli_fetch_assoc($resultado)): ?>
-                        <option <?php //echo $vendedores_id === $vendedor['id'] ? 'selected' : '' ?> value="<?php //echo s($propiedad->vendedor['id']) ?>"><?php //echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?></option>
-                    <?php //endwhile; ?> -->
-                <!-- </select> -->
+                <label for="vendedor">Vendedor</label>
+                <select name="propiedad[vendedores_id]" id="vendedor">
+                    <option value="" disabled selected>--SELECCIONE--</option>
+                    <?php foreach($vendedores as $vendedor) : ?>
+                        <option <?php echo $propiedad->vendedores_id === $vendedor->id ? 'selected' : ''; ?> value="<?php echo s($vendedor->id); ?>"> <?php echo s($vendedor->nombre) . " " . s($vendedor->apellido); ?> </option>
+                    <?php endforeach; ?>
+                </select>
 
             </fieldset>
