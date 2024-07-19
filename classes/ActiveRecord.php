@@ -135,6 +135,13 @@
             return $resultado;
         }
 
+        //Obtener limite de registros
+        public static function get($cantidad){
+            $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
+            $resultado = self::consultarSQL($query);
+            return $resultado;
+        }
+
         //Buscar un registro por su ID
         public static function find($id){
             $query = "SELECT * FROM " . static::$tabla . " WHERE id = {$id}";
